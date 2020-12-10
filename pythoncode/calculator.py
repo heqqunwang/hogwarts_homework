@@ -1,0 +1,9 @@
+class Calcuator:
+    def add(slef,a,b):
+        return  a+b
+    def sub(slef,a,b):
+        return  a-b
+    def multi(slef,a,b):
+        return  a*b
+    def div(slef,a,b):
+        return  a/b
