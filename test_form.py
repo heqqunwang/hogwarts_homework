@@ -21,10 +21,11 @@ class TestForm:
             choice.click()
             time.sleep(2)
             username=self.driver.find_element_by_id('TANGRAM__PSP_11__userName')
-            username.send_keys("15927421757")
+            username.send_keys("xxxxxx")
+            # 此处没有用真实用户名
             time.sleep(2)
             password=self.driver.find_element_by_id('TANGRAM__PSP_11__password')
-            password.send_keys("wanghequn20")
+            password.send_keys("XXXX")
             submit=self.driver.find_element_by_id('TANGRAM__PSP_11__submit')
             submit.click()
             authcode=self.driver.find_element_by_id('vcode-spin-bottom333')
