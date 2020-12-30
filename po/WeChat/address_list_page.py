@@ -10,7 +10,7 @@ class AddressListPage(BasePage):
         # 添加成员
         # todo点击添加成员
         # 滚动查找方法，点击该页面的添加成员按钮
-        self.scroll_find_click("添加成员")
+        self.swipe_find_click("添加成员")
 
 
         return MemberInviteMenuPage(self.driver)

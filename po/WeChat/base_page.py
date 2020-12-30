@@ -15,15 +15,24 @@ class BasePage():
         self.find(by,locator).click()
 
     #滑动方法
-
+    # 滑动方法-uiautomator的方法
     def scroll_find(self,text):
         return self.driver.find_element(MobileBy.
                                  ANDROID_UIAUTOMATOR, 'new UiScrollable(new UiSelector().'
                                                       'scrollable(true).instance(0)).'
                                                       'scrollIntoView(new UiSelector().'
                                                       f'text("{text}").instance(0));')
-
     def scroll_find_click(self, text):
+        self.scroll_find(text).click()
+    # appium自带的滑动方法
+    def swipe_find(self,by,locator):
+        eles=self.driver.find_elements(by,locator)
+        while len(eles)==0:
+            self.driver.swipe(0,600,0,400)
+            eles = self.driver.find_elements(by, locator)
+
+        return eles[0]
+    def swipe_find_click(self,by,locator,text):
         self.scroll_find(text).click()
 
     # 查找并发送文本
