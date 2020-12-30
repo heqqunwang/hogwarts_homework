@@ -32,8 +32,8 @@ class BasePage():
             eles = self.driver.find_elements(by, locator)
 
         return eles[0]
-    def swipe_find_click(self,by,locator,text):
-        self.scroll_find(text).click()
+    def swipe_find_click(self,by,locator):
+        self.scroll_find(by,locator).click()
 
     # 查找并发送文本
     def find_send_keys(self,by, locator,text):
