@@ -1,3 +1,4 @@
+
 from xueqiuapp.page.app import App
 
 
@@ -8,7 +9,7 @@ class TestSearch():
 
     def test_search(self):
 
-        result=self.app.start().goto_main().goto_market().goto_search().search()
+        self.app.start().goto_main().goto_market().goto_search().search()
 
 
 

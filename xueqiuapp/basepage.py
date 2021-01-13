@@ -1,6 +1,8 @@
+import yaml
 from appium.webdriver.common.mobileby import MobileBy
-from appium.webdriver.webdriver import WebDriver
+
 # 操作方法封装
+from appium.webdriver.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 
 from xueqiuapp.black import black_wrapper
@@ -10,7 +12,7 @@ class BasePage():
     def __init__(self,driver: WebDriver=None):
         self.driver=driver
         # 黑名单类
-        self.black_list=[(MobileBy.XPATH,'xxx')]
+        self.black_list=[(MobileBy.XPATH,"//*[@resource-id='com.xueqiu.android:/id/post_status']")]
 
 
 # 这里可以进行扩展
@@ -20,13 +22,22 @@ class BasePage():
     def find_with_wrap(self,by, locator):
         return self.driver.find_element(by, locator)
 
+    # 显示等待
+    def wait(self,by,locator):
+        def wait_ele_for(driver: WebDriver):
+            eles = driver.find_elements(by, locator)
+            return len(eles) > 0
+
+        WebDriverWait(self.driver, 10).until(wait_ele_for)
+
     # 查找方法
     def find(self,by,locator):
         try:
             # 捕获元素没有找到异常
+            self.wait(by,locator)
             return self.driver.find_element(by, locator)
         except Exception as e:
-            print("未找到元素")
+            # print("未找到元素")
             for black in self.black_list:
                 eles=self.finds(*black)
                 if len(eles)>0:
@@ -38,6 +49,7 @@ class BasePage():
 
     #             查找多个元素，返回一个列表
     def finds(self,by,locator):
+
         return self.driver.find_elements(by, locator)
 
     # 点击
@@ -75,3 +87,15 @@ class BasePage():
             return len(eles) > 0
 
         WebDriverWait(self.driver, 10).until(wait_ele_for)
+
+    def load(self,yaml_path):
+        with open(yaml_path, encoding="utf-8") as f:
+            data = yaml.load(f)
+        for step in data:
+            xpath_expr = step.get("find")
+            action = step.get("action")
+            if action == "find_and_click":
+                self.find_and_click(MobileBy.XPATH, xpath_expr)
+            elif action=="find_send_keys":
+                content=step.get("content")
+                self.find_send_keys(MobileBy.XPATH, xpath_expr,content)

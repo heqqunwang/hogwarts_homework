@@ -2,7 +2,7 @@ from appium import webdriver
 
 
 # 封装app启动等操作等方法
-from xueqiuapp.page.base_page import BasePage
+from xueqiuapp.basepage import BasePage
 from xueqiuapp.page.main import MainPage
 
 
