@@ -49,6 +49,10 @@ def test_add_member():
 
         }
     r=requests.post(url=add_member_url,json=data)
+    try:
+        assert r.json()['errcode']==400
+    except Exception:
+        print("添加失败")
 # 考虑以yml的形式实现增加，待完成
 
 # 删除信息
@@ -56,6 +60,9 @@ def test_delete_member():
     delete_member_url = f"https://qyapi.weixin.qq.com/cgi-bin/user/delete?access_token={get_token()}&userid=zhangyi"
 
     r=requests.get(delete_member_url)
-
+    try:
+        assert 0==r.json()['errcode']
+    except Exception:
+        print("删除失败")
 
 
